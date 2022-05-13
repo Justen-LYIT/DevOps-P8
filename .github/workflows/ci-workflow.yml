@@ -44,6 +44,9 @@ jobs:
   Build-and-Push-Docker-Image:
     runs-on: ubuntu-latest
     needs: test
+    permissions:
+      contents: read
+      packages: write
     name: Docker Build, Tag, Push
     
     steps:
@@ -58,7 +61,7 @@ jobs:
       uses: docker/build-push-action@v1
       with:
         username: ${{github.actor}}
-        password: ${{secrets.PAT_TOKEN}}
+        password: ${{secrets.GITHUB_TOKEN}}
         registry: docker.pkg.github.com
         repository: justen-lyit/devops-p8/tic-tac-toe
         tag_with_sha: true
